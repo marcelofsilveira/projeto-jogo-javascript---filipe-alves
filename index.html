@@ -19,7 +19,36 @@
 <body>
 <script>
 //variaveis do jogo
-    var canvas, ctx, ALTURA, LARGURA, frames = 0;
+    var canvas, ctx, ALTURA, LARGURA, frames = 0,
+
+    //criando o chão do jogo
+    chao = {
+        y: 550,
+        altura: 50,
+        cor: "#ffdf70",
+
+        //criando o metodo do desenho
+        desenha: function() {
+            ctx.fillStyle = this.cor;
+            ctx.fillRect(0, this.y, LARGURA, this.altura);
+        }
+    },
+
+    //criando o bloco
+    bloco = {
+        x: 50,
+        y: 0,
+        altura: 50,
+        largura: 50,
+        cor: "#ff4e4e",
+
+        //criando o 
+        desenha: function(){
+            ctx.fillStyle = this.cor;
+            ctx.fillRect(this.x, this.y, this.largura, this.altura)
+        }
+
+    };
 
     function clique (event) {
         alert("clicou");
@@ -56,6 +85,11 @@
     function desenha() {
         ctx.fillStyle = "#50beff";
         ctx.fillRect(0, 0, LARGURA, ALTURA);
+
+        //desenhando o chão
+        chao.desenha(); 
+        //metodo do bloco
+        bloco.desenha();
     }
 
     //inicializa o jogo
