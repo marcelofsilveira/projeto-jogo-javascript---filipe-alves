@@ -19,7 +19,14 @@
 <body>
 <script>
 //variaveis do jogo
-    var canvas, ctx, ALTURA, LARGURA, frames = 0, maxPulos = 3, velocidade = 6,
+    var canvas, ctx, ALTURA, LARGURA, frames = 0, maxPulos = 3, velocidade = 6, estadoAtual,
+
+    //criando os estados do jogo
+    estados = {
+        jogar: 0,
+        jogando: 1,
+        perdeu: 2
+    },
 
     //criando o chão do jogo
     chao = {
@@ -152,6 +159,7 @@
         document.body.appendChild(canvas);
         document.addEventListener("mousedown", clique);
 
+        estadoAtual = estados.jogar;
         roda(); //função que faz o jogo rodar
     }
     function roda() {
@@ -173,12 +181,27 @@
         ctx.fillStyle = "#80daff";
         ctx.fillRect(0, 0, LARGURA, ALTURA);
 
-        //desenhando o chão
-        chao.desenha(); 
+        //desenha os estados
+        if (estadoAtual == estados.jogar){
+            ctx.fillStyle = "green";
+            ctx.fillRect(LARGURA /2 - 50, ALTURA /2 - 50, 100, 100);
+        }
+
+        else if (estadoAtual == estados.perdeu) {
+            ctx.fillStyle = "red";
+            ctx.fillRect(LARGURA/2 - 50, ALTURA/2 - 50, 100, 100);            
+        }
+        else if (estadoAtual == estados.jogando){
+         
         //metodo dos obstaculos
         obstaculos.desenha(); 
+        //desenhando o chão
+        chao.desenha();
         //metodo do bloco
         bloco.desenha();
+        }
+
+        
     }
 
     //inicializa o jogo
