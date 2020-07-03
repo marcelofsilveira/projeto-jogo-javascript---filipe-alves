@@ -139,7 +139,15 @@
     };
 
     function clique (event) {
+        if (estadoAtual == estados.jogando)
         bloco.pula();
+
+        else if (estadoAtual == estados.jogar) {
+            estadoAtual = estados.jogando;
+        }
+        else if (estadoAtual == estados.perdeu) {
+            estadoAtual = estados.jogar;
+        }
     }
     function main() {
         ALTURA = window.innerHeight;
@@ -174,8 +182,10 @@
         //metodo que atualiza o bloco
         bloco.atualiza();
 
-        //atualiza os obstaculos
-        obstaculos.atualiza();
+        if (estadoAtual == estados.jogando)
+            //atualiza os obstaculos
+            obstaculos.atualiza();
+        
     }
     function desenha() {
         ctx.fillStyle = "#80daff";
@@ -191,17 +201,15 @@
             ctx.fillStyle = "red";
             ctx.fillRect(LARGURA/2 - 50, ALTURA/2 - 50, 100, 100);            
         }
-        else if (estadoAtual == estados.jogando){
-         
+
+        else if (estadoAtual == estados.jogando)
         //metodo dos obstaculos
         obstaculos.desenha(); 
         //desenhando o chão
         chao.desenha();
         //metodo do bloco
         bloco.desenha();
-        }
-
-        
+                
     }
 
     //inicializa o jogo
